@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 
-const int HASH_MAP_SIZE = 3;
+const int HASH_MAP_SIZE = 10;
 const int MAX_KEY_SIZE = 10;
 
 bool mystrcmp(int s1_size, char* s1, int s2_size, char* s2){
@@ -53,17 +53,16 @@ class LinkedList{
         }
     }
 
-    void update(Node* newnode){
+    void update(int key_size, char* key, int data){
         struct Node* cur = head;
         while(cur){
-            if(cur->key_size==newnode->key_size && mystrcmp(cur->key_size, cur->key, newnode->key_size, newnode->key)){
-                cur->data = newnode->data;
-                delete newnode;
+            if(cur->key_size==key_size && mystrcmp(cur->key_size, cur->key, key_size, key)){
+                cur->data = data;
                 return;
             }
             cur = cur->next;
         }
-        // not found
+        // not found. So nothing to do
     }
 
     void print(){
@@ -88,7 +87,7 @@ class Dict{
         for(int i=0; i<key_size; i++){
             x = (x + key[i] * 37)%HASH_MAP_SIZE;
         }
-        cout<<key<<"=="<<x<<endl;
+        //cout<<key<<"=="<<x<<endl;
         return x;
     }
 
@@ -98,7 +97,7 @@ class Dict{
             map[id].append(create_node(key_size, key, value));
         }else{
             // key exists. so just update data
-            map[id].update(create_node(key_size, key, value));
+            map[id].update(key_size, key, value);
         }
     }
 
@@ -129,7 +128,7 @@ class Dict{
     void print(){
         for(int i=0; i<HASH_MAP_SIZE; i++){
             if(map[i].head){
-                cout<<i<<" : ";
+                cout<<"["<<i<<"] => ";
                 map[i].print();
             }
         }
