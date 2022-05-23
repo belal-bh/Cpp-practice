@@ -41,9 +41,7 @@ int main(){
     int num;
     n = 0;
     if(inFile_2.is_open()){
-        while(inFile_2>>num){
-            nums[n++] = num;
-        }
+        while(inFile_2>>nums[n++]);
     }else{
         cout<<"file cannot be opened"<<endl;
     }
